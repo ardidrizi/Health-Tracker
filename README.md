@@ -8,8 +8,6 @@ This is the backend API server for the Health-Fitness Tracker application. It pr
 
 - **User Authentication**: Users can sign up, log in, and manage their accounts with encrypted passwords.
 - **Track Workouts**: Users can log different types of workouts (e.g., running, cycling, strength training) with details like duration, calories burned, etc.
-- **Track Nutrition**: Users can log their daily food intake, including meal type, calories, and macros (carbs, protein, fats).
-- **Track Sleep**: Users can log their sleep duration and quality.
 - **Track Progress**: Users can track progress over time with weight and measurements.
 - **Admin Panel**: Optional, for an admin to manage the system (users, workouts, food data, etc.).
 
@@ -19,8 +17,8 @@ The following models are used in the system:
 
 - **User Model**: Stores authentication data and basic user details.
 - **Workout Model**: Stores workout-related data like type, duration, calories burned.
-- **Nutrition Model**: Stores food logs with calories, macros, and meal information.
-- **Sleep Model**: Stores daily sleep logs (duration, quality).
+<!-- - **Nutrition Model**: Stores food logs with calories, macros, and meal information.
+- **Sleep Model**: Stores daily sleep logs (duration, quality). -->
 - **Progress Model**: Stores metrics like weight, body measurements, and progress photos.
 
 ## Installation
