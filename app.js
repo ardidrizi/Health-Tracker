@@ -20,11 +20,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 // DB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/health-fitness").then((x) => {
+mongoose.connect(process.env.MONGO_URI).then((x) => {
   console.log(
     `Connected to the database Database name: "${x.connections[0].name}"`
   );
 });
+
+// Routes
+// Authentification routes
+const authRouter = require("./routes/authRoutes");
+app.use("/auth", authRouter);
+
+// Workout routes
+const workoutRouter = require("./routes/workout.routes");
+app.use("/api", workoutRouter);
 
 // Start the server
 const PORT = process.env.PORT;
