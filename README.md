@@ -56,6 +56,9 @@ The API provides the following endpoints:
   - `POST /api/auth/signup`: Sign up a new user.
   - `POST /api/auth/login`: Log in an existing user.
   - `GET /api/auth/me`: Get the authenticated user's details.
+  - - `Get /api/user/:userId` Get a single user
+  - `Get /api/user/:userId/workouts` Get all workout of single user
+  - `Get /api/user/:userId/workouts/:workoutId` Get single workout of single user
 
 - **Workouts**
 
