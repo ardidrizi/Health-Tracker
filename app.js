@@ -39,6 +39,10 @@ app.use("/api", userRouter);
 const workoutRouter = require("./routes/workout.routes");
 app.use("/api", workoutRouter);
 
+// Progress routes
+const progressRouter = require("./routes/progress.routes");
+app.use("/api", progressRouter);
+
 // Start the server
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

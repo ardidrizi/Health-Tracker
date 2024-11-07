@@ -1,8 +1,8 @@
 const { Schema, model } = require("mongoose");
 
 const progressSchema = new Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+  userId: {
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
@@ -11,15 +11,6 @@ const progressSchema = new Schema({
     required: true,
   },
   bodyFatPercentage: {
-    type: Number,
-  },
-  chest: {
-    type: Number, // in cm or inches
-  },
-  waist: {
-    type: Number,
-  },
-  hips: {
     type: Number,
   },
   date: {
