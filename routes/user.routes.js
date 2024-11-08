@@ -17,7 +17,7 @@ userRouter.get("/auth/me", verifyJWT, async (req, res, next) => {
 });
 
 // GET /api/user/:userId
-userRouter.get("/user/:userId", async (req, res, next) => {
+userRouter.get("/user/:userId", verifyJWT, async (req, res, next) => {
   const { userId } = req.params;
 
   try {

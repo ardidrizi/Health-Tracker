@@ -1,5 +1,8 @@
 const express = require("express");
 const Workout = require("../models/Workout.model");
+const User = require("../models/User.model");
+const { verify } = require("jsonwebtoken");
+const { verifyJWT } = require("../middleware/verifyJWT");
 
 const workoutRouter = express.Router();
 
@@ -34,34 +37,40 @@ workoutRouter.get("/workouts", async (req, res, next) => {
 });
 
 // GET /api/workouts/:userId??
-workoutRouter.get("/workouts/:userId", async (req, res, next) => {
-  const { userId } = req.params;
+// workoutRouter.get("/workouts/:userId", async (req, res, next) => {
+//   const { userId } = req.params;
 
-  try {
-    const workouts = await Workout.find({ user: userId });
-    res.status(200).json(workouts);
-  } catch (error) {
-    console.error(error);
-    next(error);
-    res.status(500).json({ error: "server error" });
-  }
-});
+//   try {
+//     const workouts = await Workout.find({ user: userId });
+//     res.status(200).json(workouts);
+//   } catch (error) {
+//     console.error(error);
+//     next(error);
+//     res.status(500).json({ error: "server error" });
+//   }
+// });
 
 // get a workout by ID
 // GET /api/workouts/:id
-workoutRouter.get("/workouts/:userID/:workoutID", async (req, res, next) => {
-  const { userID, workoutID } = req.params;
-  console.log(`Workout id : ${workoutID}`);
-  console.log(`User id : ${userID}`);
+workoutRouter.get("/:username/workouts/", verify, async (req, res, next) => {
+  const { username } = req.params;
 
-  if (!workoutID) {
-    console.log("Workout ID is missing in the request");
-    res.status(400).json({ error: "Workout ID is required" });
+  const foundUser = await User.findOne({ username: username });
+  if (!foundUser) {
+    console.log(`User with username: ${username} not found`);
+    res.status(404).json({ error: "User not found" });
     return;
   }
+
   try {
-    const workout = await Workout.findById(workoutID);
-    res.status(200).json(workout);
+    const userId = foundUser._id;
+    const userWorkouts = await Workout.find({ user: userId });
+    if (!userWorkouts) {
+      console.log(`No workouts found for user: ${username}`);
+      res.status(404).json({ error: "No workouts found for user" });
+      return;
+    }
+    res.status(200).json(userWorkouts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "server error" });
