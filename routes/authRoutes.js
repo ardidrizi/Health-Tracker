@@ -88,15 +88,17 @@ authRouter.post("/login", async (req, res, next) => {
       res.status(400).json({ message: "wrong credentials." });
       return;
     }
-    const { _id, username } = foundUser;
-    const payload = { _id, email, username };
+    const { _id } = foundUser;
+    const payload = { _id, email };
 
     const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
       algorithm: "HS256",
       expiresIn: "6h",
     });
 
-    res.status(200).json({ authToken: authToken });
+    res
+      .status(200)
+      .json({ authToken: authToken, username: foundUser.username });
     console.log(authToken);
   } catch (error) {
     console.error(error);
