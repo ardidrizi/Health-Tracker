@@ -83,7 +83,7 @@ authRouter.post("/login", async (req, res, next) => {
       return;
     }
 
-    const isPasswordMatch = bcrypt.compareSync(password, foundUser.password);
+    const isPasswordMatch = bcrypt.compare(password, foundUser.password);
     if (!isPasswordMatch) {
       res.status(400).json({ message: "wrong credentials." });
       return;
@@ -110,7 +110,18 @@ authRouter.post("/login", async (req, res, next) => {
 
 // GET  /auth/verify
 authRouter.get("/verify", verifyJWT, (req, res, next) => {
-  res.status(200).json({ loggedIn: true });
+  try {
+    // Respond with a consistent success structure
+    return res.status(200).json({
+      success: true,
+      message: "JWT verified successfully",
+      data: req.payload, // The verified JWT payload
+    });
+  } catch (error) {
+    // Handle any unexpected errors by passing to the next middleware
+    console.error(error);
+    next(error);
+  }
 });
 
 // ...
