@@ -47,6 +47,9 @@ app.use("/api", progressRouter);
 const exercisesRouter = require("./routes/exercises.routes");
 app.use("/api", exercisesRouter);
 
+const favoriteRouter = require("./routes/favorite.routes");
+app.use("/api", favoriteRouter);
+
 // Start the server
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
