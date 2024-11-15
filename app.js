@@ -47,6 +47,9 @@ app.use("/api", progressRouter);
 const exercisesRouter = require("./routes/exercises.routes");
 app.use("/api", exercisesRouter);
 
+const exercisesRouter2 = require("./routes/exercise2.routes");
+app.use("/api", exercisesRouter2);
+
 const favoriteRouter = require("./routes/favorite.routes");
 app.use("/api", favoriteRouter);
 

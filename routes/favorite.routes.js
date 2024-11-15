@@ -5,6 +5,7 @@ const User = require("../models/User.model");
 
 const favoriteRouter = express.Router();
 
+// Post a favorite workout
 favoriteRouter.post("/favorite", verifyJWT, async (req, res, next) => {
   const { _id } = req.payload;
   try {
@@ -55,6 +56,7 @@ favoriteRouter.post("/favorite", verifyJWT, async (req, res, next) => {
   }
 });
 
+// Update a favorite workout
 favoriteRouter.patch(
   "/favorite/:favoriteId",
   verifyJWT,
@@ -95,5 +97,28 @@ favoriteRouter.patch(
     }
   }
 );
+
+// Get all favorite workouts by current userid
+favoriteRouter.get("/favorite", verifyJWT, async (req, res, next) => {
+  const { _id } = req.payload;
+  try {
+    const foundUser = await User.findById(_id);
+    if (!foundUser) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    const foundFavorite = await Favorite.findOne({ user: _id });
+    if (!foundFavorite) {
+      res.status(404).json({ message: "Favorite not found" });
+      return;
+    }
+
+    res.status(200).json(foundFavorite);
+  } catch (error) {
+    console.warn(error);
+    next(error);
+  }
+});
 
 module.exports = favoriteRouter;
