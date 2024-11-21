@@ -10,7 +10,8 @@ class ExercisesAPI {
         "x-rapidapi-key": process.env.EXERCISE_API_KEY,
         "x-rapidapi-host": process.env.EXERCISE_API_HOST,
       };
-      return config;
+      // Enalbe this if you want to see the request in the console
+      // return config;
     });
   }
   getAllExercises = () => {
